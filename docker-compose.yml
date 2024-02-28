@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  devops:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+#    command: /devops/scripts/subject-filtering.sh
+    volumes:
+      - ./source:/devops/source
+      - ./scripts:/devops/scripts
+      - ./tools:/devops/tools
+
+#volumes:

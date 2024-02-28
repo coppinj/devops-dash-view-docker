@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  cling:
+    image: pderakhshanfar/cling-application
+    container_name: cling-application-container
+    command: tail -f /dev/null
