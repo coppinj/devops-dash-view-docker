@@ -6,10 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     command: tail -f /dev/null
-#    command: /devops/scripts/subject-filtering.sh
     volumes:
-      - ./source:/devops/source
+      - ./data:/devops/data
+      - ./logs:/devops/logs
+      - ./projects:/devops/projects
+      - ./results:/devops/results
       - ./scripts:/devops/scripts
-      - ./tools:/devops/tools
-
-#volumes:

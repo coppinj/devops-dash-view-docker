@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 # Check input CSV file
-INPUT="subject_generator/subjects.csv"
-[ ! -f $INPUT ] && { echo "$INPUT file not found"; }
+SUBJECTS_PATH="subject_generator/subjects.csv"
+if [ ! -f $SUBJECTS_PATH ]; then
+  echo "$SUBJECTS_PATH file not found"
+
+  exit 1
+fi
+
 # Add new separator
 OLDIFS=$IFS
 IFS=,
@@ -12,30 +17,31 @@ LIMIT=$1
 
 # Prepare job lists
 echo "Reading tasks"
-job_list=()
+JOB_LIST=()
 
-counter=0
+COUNTER=0
+
 while read tool execution_id project caller_class callee_class type
 do
   # skip the title row
-  if [[ "$counter" -eq "0" ]]; then
-    counter=1
+  if [[ "$COUNTER" -eq "0" ]]; then
+    COUNTER=1
     continue
   fi
 
   task_json=$(python scripts/python/test-generation/task_to_string.py $tool $execution_id $project $caller_class $callee_class)
-  job_list+=($task_json)
+  JOB_LIST+=($task_json)
 
-done < $INPUT
+done < $SUBJECTS_PATH
 
-# Here, we have the list of jobs in job_list
-echo "The number of tasks is "${#job_list[@]}""
+# Here, we have the list of jobs in JOB_LIST
+echo "The number of tasks is "${#JOB_LIST[@]}""
 
 # Start the test generation
 
-counter=0
-for t in ${job_list[@]}; do
-  ((counter++))
+COUNTER=0
+for t in "${JOB_LIST[@]}"; do
+  ((COUNTER++))
   # Read values
   tool=$(python scripts/python/test-generation/get_from_json.py $t "tool")
   execution_id=$(python scripts/python/test-generation/get_from_json.py $t "execution_id")
@@ -43,7 +49,7 @@ for t in ${job_list[@]}; do
   caller_class=$(python scripts/python/test-generation/get_from_json.py $t "caller_class")
   callee_class=$(python scripts/python/test-generation/get_from_json.py $t "callee_class")
 
-  echo "Task #$counter executes $tool for the $execution_id(th) time on project $project. caller class: $caller_class, callee class: $callee_class"
+  echo "Task #$COUNTER executes $tool for the $execution_id(th) time on project $project. caller class: $caller_class, callee class: $callee_class"
   . scripts/run/run_cling.sh $execution_id $project $caller_class $callee_class
 
   # Stop the script execution if we reach to the indicated maximum number of parallel processes

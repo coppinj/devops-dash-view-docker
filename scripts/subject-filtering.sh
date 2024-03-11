@@ -1,8 +1,9 @@
-ROOT_DIR="/devops/source"
+ROOT_DIR="/devops"
+PROJECT_DIR="$ROOT_DIR/projects"
+SCRIPT_DIR="$ROOT_DIR/scripts"
+TMP_DIR="$ROOT_DIR/tmp"
 
-# Iterate over each project directory
-for PROJECT_PATH in "$ROOT_DIR"/*/; do
-    # Check if cp-entries.txt and cp-package.txt exist
+for PROJECT_PATH in "$PROJECT_DIR"/*/; do
     if [ ! -f "${PROJECT_PATH}/cp-entries.txt" ] || [ ! -f "${PROJECT_PATH}/cp-package.txt" ]; then
         echo "One or both of the required files are missing for project: $PROJECT_PATH"
         continue
@@ -20,13 +21,9 @@ for PROJECT_PATH in "$ROOT_DIR"/*/; do
 
     CPS=$( python /devops/scripts/reassemble-cps.py "$CP_ENTRIES_CONTENT" "$PROJECT")
 
-    java -Xmx4000m -jar tools/coupling.jar "-project_prefix" "$PACKAGE" "-project_cp" "$CPS" "-out_dir" "/devops/temp-csvs/$PROJECT"
+    java -Xmx4000m -jar tools/coupling.jar "-project_prefix" "$PACKAGE" "-project_cp" "$CPS" "-out_dir" "$TMP_DIR/$PROJECT"
 done
 
-exit 0;
+python "$SCRIPT_DIR/make-final-csv.py"
 
-# Merge CSV files
-
-
-python scripts/python/case-selection/make-final-csv.py
-rm -rf temp-csvs
+rm -rf "$TMP_DIR"

@@ -16,16 +16,16 @@ RUN         dnf install procps --assumeyes
 ##
 ## COPY logs /experiment/logs
 ## COPY results /experiment/results
-#COPY defects4j /experiment/defects4j
+#COPY defects4j /devops/defects4j
 ## COPY data /experiment/data
 #COPY projects /experiment/projects
 ## COPY tools /experiment/tools
-#COPY libs /experiment/libs
+#COPY libs /devops/libs
 
 WORKDIR /devops
 
 #COPY scripts /devops/scripts
-#COPY tools /devops/tools
+COPY tools /devops/tools
 
 # RUN chmod +x -R /devops/scripts
 RUN chmod +x -R /devops

@@ -1,2 +1,6 @@
 .idea/*
-source/*
+data/*
+logs/*
+projects/*
+results/*
+scripts/.idea/*
