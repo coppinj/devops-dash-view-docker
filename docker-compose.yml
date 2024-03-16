@@ -12,3 +12,8 @@ services:
       - ./projects:/devops/projects
       - ./results:/devops/results
       - ./scripts:/devops/scripts
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10mb'
+        max-file: '10'

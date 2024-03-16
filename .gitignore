@@ -1,5 +1,7 @@
 .idea/*
 data/*
+defects4j/*
+libs/*
 logs/*
 projects/*
 results/*

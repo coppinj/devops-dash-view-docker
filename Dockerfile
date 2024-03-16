@@ -12,6 +12,12 @@ RUN         dnf install java-1.8.0-openjdk-openjfx --assumeyes
 RUN         dnf install java-1.8.0-openjdk-openjfx-devel --assumeyes
 RUN         dnf install procps --assumeyes
 
+RUN         dnf install tree --assumeyes
+RUN         dnf install htop --assumeyes
+RUN         dnf install psmisc --assumeyes
+RUN         dnf install jq --assumeyes
+RUN         dnf install zip --assumeyes
+
 #WORKDIR /experiment
 ##
 ## COPY logs /experiment/logs
