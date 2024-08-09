@@ -6,3 +6,6 @@ logs/*
 projects/*
 results/*
 scripts/.idea/*
+
+debug/*
+debug.zip
