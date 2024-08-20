@@ -42,7 +42,7 @@ echo "[INFO] The number of tasks is "${#JOB_LIST[@]}""
 
 LOOP_MAX_ITERATIONS=$MAX_ITERATIONS
 
-if [ "$MAX_ITERATIONS" -le 0 ]; then
+if [ "$MAX_ITERATIONS" -lt "0" ]; then
   LOOP_MAX_ITERATIONS=${#JOB_LIST[@]}
 fi
 
@@ -54,6 +54,11 @@ COUNTER=0
 MAX_ITERATIONS_EXCEEDED=0
 
 for t in "${JOB_LIST[@]}"; do
+  if [ "$LOOP_MAX_ITERATIONS" -eq "0" ]; then
+    MAX_ITERATIONS_EXCEEDED=1
+    break
+  fi
+
   ((COUNTER++))
   # Read values
   execution_id=$(python "$SCRIPT_DIR/python/get_from_json.py" $t "execution_id")

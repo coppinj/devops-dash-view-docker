@@ -1,0 +1,4 @@
+.env
+docker-compose*
+build.sh
+run-container-from-image

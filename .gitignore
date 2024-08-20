@@ -9,3 +9,5 @@ scripts/.idea/*
 
 debug/*
 debug.zip
+
+.env

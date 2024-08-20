@@ -1,8 +1,5 @@
 #!/bin/bash
 
-BUDGET=20
-MAX_ITERATIONS=5
-
 ROOT_DIR="/devops"
 DATA_DIR="$ROOT_DIR/data"
 LOG_DIR="$ROOT_DIR/logs"
