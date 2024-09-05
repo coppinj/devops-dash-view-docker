@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: tail -f /dev/null
+    env_file: .env
     volumes:
       - ./data:/devops/data
       - ./debug:/devops/debug

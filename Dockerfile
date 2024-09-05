@@ -36,4 +36,4 @@ COPY tools /devops/tools
 # RUN chmod +x -R /devops/scripts
 RUN chmod +x -R /devops
 
-CMD /devops/scripts/subject-filtering.sh &
+CMD /devops/scripts/bash/start.sh

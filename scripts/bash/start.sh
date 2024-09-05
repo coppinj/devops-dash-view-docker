@@ -37,6 +37,12 @@ if [ ! -d "$LOG_DIR" ]; then
   mkdir "$LOG_DIR"
 fi
 
+if [ -d "$RESULT_DIR" ]; then
+  rm -fr "$RESULT_DIR"
+fi
+
+mkdir "$RESULT_DIR"
+
 ./scripts/bash/subject-filtering.sh
 
 python ./scripts/python/generate.py
